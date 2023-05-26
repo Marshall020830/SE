@@ -1,14 +1,15 @@
 //专门用于创建路由器
 import VueRouter from 'vue-router'
 //导入组件
-import adminlogin from '../components/adminlogin.vue'
-import clientlogin from '../components/clientlogin.vue'
+import adminlogin from '../components/admin/adminlogin.vue'
+import clientlogin from '../components/client/clientlogin.vue'
 import welcome from '../components/welcome.vue'
-import manage from '../components/manage.vue'
-import admin from '../components/admin.vue'
-import client from '../components/client.vue'
-import register from '../components/register.vue'
-import report from '../components/report.vue'
+import manage from '../components/admin/manage.vue'
+import admin from '../components/admin/admin.vue'
+import client from '../components/client/client.vue'
+import register from '../components/client/register.vue'
+import report from '../components/admin/report.vue'
+import charge from '../components/admin/charge.vue'
 //创建一个路由器
 const router = new VueRouter({
     routes:[
@@ -27,6 +28,10 @@ const router = new VueRouter({
                         {
                             path:'report',
                             component:report
+                        },
+                        {
+                            path:'charge',
+                            component:charge
                         }
                     ]
                 },

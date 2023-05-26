@@ -1,5 +1,6 @@
 <template>
   <div>
+      <div @click="goback">返回登录界面</div>
       <div>{{ station.id }}   {{ station.name }}</div>
       <el-table :data="charge_array" style="width:100%" :cell-style="{ textAlign: 'center' }">
       <el-table-column prop="id" label="ID" width="150">
@@ -48,23 +49,24 @@ import report from "./report.vue"
             charge_array:[]
           }
         },
-        mounted(){
-          this.autogetdata();
-          this.timer = setInterval(this.autogetdata,30000)
-        },
+        // mounted(){
+        //   this.autogetdata();
+        //   this.timer = setInterval(this.autogetdata,30000)
+        // },
         methods:{
           autogetdata(){
             var token = localStorage.getItem('token')
             var send_data={
-              "token":token,
+              "token":'1',
               "query_info": {
                 "msg": ""
               }
             }
+            console.log("获取数据")
             console.log("我被执行了")
             this.axios({
               method:'GET',
-              url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage`,
+              url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage?token=1`,
               // headers:{
               //   'Content-type': 'application/json; charset=UTF-8'
               // },
@@ -83,13 +85,13 @@ import report from "./report.vue"
               }
             })
             .catch((error) => {
-              alert('出错了')
+              alert('manage出错了')
               // this.$router.push('/admin/manage')
             })
           },
           jump(id){
             console.log("点击"+id)
-            this.$router.push({
+            this.$router.replace({
               path:'/admin/manage/report',
               query:{
                 "stationid":id,
@@ -127,13 +129,34 @@ import report from "./report.vue"
             
           },
           jumpcharge(id){
-            this.router.push({
+            this.$router.replace({
               path:'/admin/manage/charge',
               query:{
                 "stationid":id
               }
             })
+          },
+          goback(){
+            this.$router.go(-1)
           }
+        },
+        beforeDestroy(){
+          clearInterval(this.timer)
+          this.timer = null
+        },
+        beforeRouteLeave(to,from,next){
+          console.log("离开当前页面")
+          clearInterval(this.timer)
+          next()
+          // this.timer = null
+        },
+        beforeRouteEnter(to,from,next){
+          next(vm => {
+            console.log("enter")
+            vm.autogetdata();
+            vm.timer = setInterval(vm.autogetdata,30000)
+          })
+          
         }
     }
 </script>

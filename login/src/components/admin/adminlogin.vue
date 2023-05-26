@@ -10,6 +10,7 @@
         <input type="text" id="group" placeholder="GroupInfo" v-model="groupinfo">
         <span style="color:red;">{{ info }}</span>
         <input type="button" id="submit" @click="dosubmit" value="登录">
+        <input type="button" id="goback" @click="goback" value="返回">
         <!-- 指定组件呈现位置 -->
         <router-view></router-view>
       </div>
@@ -89,7 +90,16 @@
             else{
                 this.passwdstyle['border-color'] = "#3498db"
             }
+        },
+        goback(){
+          this.$router.go(-1)
         }
+      },
+      activated(){
+        console.log("进入login")
+      },
+      beforeRouteLeave(to,from,next){
+        next()
       }
     }
   </script>

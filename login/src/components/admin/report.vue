@@ -2,7 +2,7 @@
   <div>
     <h1>{{stationid}}</h1>
     <ul>
-      <li>{{ stationinfo[0] }}</li>
+      <!-- <li>{{ stationinfo[0] }}</li> -->
     </ul>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
         }
         this.axios({
             method:'GET',
-            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/login`,
+            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage/report`,
             // headers:{
             //   'Content-type': 'application/json; charset=UTF-8'
             // },
@@ -55,7 +55,7 @@ export default {
             }
           })
           .catch((error) => {
-            alert('出错了')
+            alert('report出错了')
           })
     },
 }

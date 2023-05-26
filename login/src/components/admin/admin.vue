@@ -11,9 +11,9 @@ export default {
         adminlogin,
         manage
     },
-    created(){
-        console.log("admin被创建了")
-    }
+    // created(){
+    //     console.log("admin被创建了")
+    // }
 }
 </script>
 

@@ -37,7 +37,7 @@
           }
           this.axios({
               method:'GET',
-              url:`https://mock.apifox.cn/m1/2726825-0-default/admin/login`,
+              url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage/charge`,
               // headers:{
               //   'Content-type': 'application/json; charset=UTF-8'
               // },

@@ -8,8 +8,8 @@
 <script>
     // import login from './components/login.vue'
     import welcome from './components/welcome.vue'
-    import admin from './components/admin.vue'
-    import client from './components/client.vue'
+    import admin from './components/admin/admin.vue'
+    import client from './components/client/client.vue'
     // import manage from './components/manage.vue'
     export default {
         name:'App',

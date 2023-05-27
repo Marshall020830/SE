@@ -24,17 +24,15 @@ const router = new VueRouter({
                 {
                     path:'manage',
                     component:manage,
-                    children:[
-                        {
-                            path:'report',
-                            component:report
-                        },
-                        {
-                            path:'charge',
-                            component:charge
-                        }
-                    ]
                 },
+                {
+                    path:'manage/report',
+                    component:report
+                },
+                {
+                    path:'manage/charge',
+                    component:charge
+                }
             ]
         },
         {

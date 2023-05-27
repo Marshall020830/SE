@@ -1,7 +1,7 @@
 <template>
   <div>
-      <div @click="goback">返回登录界面</div>
-      <div>{{ station.id }}   {{ station.name }}</div>
+      <button @click="goback">返回登录界面</button>
+      <div>{{ station.id }}   {{ station.name }} 充电桩信息</div>
       <el-table :data="charge_array" style="width:100%" :cell-style="{ textAlign: 'center' }">
       <el-table-column prop="id" label="ID" width="150">
         <template slot-scope="scope">
@@ -27,12 +27,19 @@
       <el-table-column prop="" label="车辆信息" width="150"> 
         <template slot-scope="scope">
           <el-button @click="jumpcharge(scope.row.id)">
-            查看车辆信息
+            查看充电等候区车辆信息
           </el-button>
         </template>
       </el-table-column>
     </el-table>
-    <router-view></router-view>
+    <div>等候区车辆信息</div>
+    <el-table :data="wait_array" style="width:100%" :cell-style="{ textAlign: 'center' }">
+      <el-table-column prop="user_id" label="用户" width="150"></el-table-column>
+      <el-table-column prop="name" label="名字" width="150"></el-table-column>
+      <el-table-column prop="power_capicity" label="电池总容量" width="150"></el-table-column>
+      <el-table-column prop="power_current" label="当前电量" width="150"></el-table-column>
+      <el-table-column prop="state" label="当前状态" width="150"></el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -40,13 +47,11 @@
 import report from "./report.vue"
     export default {
         name:'manage',
-        comments:{
-          report
-        },
         data(){
           return{
-            station:[],
-            charge_array:[]
+            station:{},
+            charge_array:[],
+            wait_array:[]
           }
         },
         // mounted(){
@@ -78,6 +83,7 @@ import report from "./report.vue"
               if(response.data.code != '-1'){
                 this.station = response.data.data.station
                 this.charge_array = response.data.data.station.charge_array
+                this.wait_array = response.data.data.station.wait_array
                 console.log(this.charge_array)
               }
               else{
@@ -90,7 +96,7 @@ import report from "./report.vue"
             })
           },
           jump(id){
-            console.log("点击"+id)
+            // console.log("点击"+id)
             this.$router.replace({
               path:'/admin/manage/report',
               query:{

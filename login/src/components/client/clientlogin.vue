@@ -62,8 +62,8 @@
             data:JSON.stringify(send_data)
         })
         .then((response)=>{
-            if(response.data.code == 200){
-                this.$router.push('/client/manage')
+            if(response.data.code == 0){
+                this.$router.push('/client/index')
             }
             else{
                 this.info = '账号或密码错误'

@@ -10,6 +10,10 @@ import client from '../components/client/client.vue'
 import register from '../components/client/register.vue'
 import report from '../components/admin/report.vue'
 import charge from '../components/admin/charge.vue'
+import index from '../components/client/index.vue'
+import information from '../components/client/information.vue'
+import order from '../components/client/order.vue'
+import car from '../components/client/car.vue'
 //创建一个路由器
 const router = new VueRouter({
     routes:[
@@ -22,15 +26,15 @@ const router = new VueRouter({
                     component:adminlogin
                 },
                 {
-                    path:'manage',
+                    path:'index/manage',
                     component:manage,
                 },
                 {
-                    path:'manage/report',
+                    path:'index/report',
                     component:report
                 },
                 {
-                    path:'manage/charge',
+                    path:'index/charge',
                     component:charge
                 }
             ]
@@ -50,6 +54,24 @@ const router = new VueRouter({
                 {
                     path:'register',
                     component:register
+                },
+                {
+                    path:'index',
+                    component:index,
+                    children:[
+                        {
+                            path:'information',
+                            component:information
+                        },
+                        {
+                            path:'order',
+                            component:order
+                        },
+                        {
+                            path:'car',
+                            component:car
+                        }
+                    ]
                 }
             ]
         },

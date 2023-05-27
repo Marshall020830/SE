@@ -7,7 +7,7 @@
             <input :type="pwdtype" id="password" placeholder="Password" :style="passwdstyle" v-model="password" @blur="setpwidth(200)" @focus="setpwidth(280)">
             <i class="eye" :style="{right:toright1+'%'}"  @click="changeeye"></i>
         </div>
-        <input type="text" id="group" placeholder="GroupInfo" v-model="groupinfo">
+        <!-- <input type="text" id="group" placeholder="GroupInfo" v-model="groupinfo"> -->
         <span style="color:red;">{{ info }}</span>
         <input type="button" id="submit" @click="dosubmit" value="登录">
         <input type="button" id="goback" @click="goback" value="返回">
@@ -25,7 +25,7 @@
             "pwdtype":"password",
             "account":"",
             "password":"",
-            "groupinfo":"",
+            // "groupinfo":"",
             "info":"",
             "logintype":"",
             passwdstyle:{
@@ -51,32 +51,32 @@
           var send_data = {
             "account":this.account,
             "password":this.password,
-            "group":this.groupinfo
+            // "group":this.groupinfo
           }
-          this.$router.push('/admin/manage')
-          // this.axios({
-          //   method:'POST',
-          //   url:`https://mock.apifox.cn/m1/2726825-0-default/admin/login`,
-          //   headers:{
-          //     'Content-type': 'application/json; charset=UTF-8'
-          //   },
-          //   data:JSON.stringify(send_data)
-          // })
-          // .then((response)=>{
-          //   console.log(response)
-          //   if(response.data.code == "200"){
-          //     this.$router.push('/admin/manage')
-          //     localStorage.setItem('token',response.data.data.token)
-          //   }
-          //   else{
-          //     this.info = response.data.msg
-          //   }
-          // })
-          // .catch((error) => {
-          //   alert('出错了')
-          //   // this.$router.push('/admin/manage')
-          // })
           // this.$router.push('/admin/manage')
+          this.axios({
+            method:'POST',
+            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/login`,
+            headers:{
+              'Content-type': 'application/json; charset=UTF-8'
+            },
+            data:JSON.stringify(send_data)
+          })
+          .then((response)=>{
+            // console.log(response)
+            if(response.data.code == 0){
+              this.$router.push('/admin/manage')
+              localStorage.setItem('token',response.data.data.token)
+            }
+            else{
+              this.info = response.data.msg
+            }
+          })
+          .catch((error) => {
+            alert('出错了')
+            // this.$router.push('/admin/manage')
+          })
+          this.$router.push('/admin/manage')
         },
         changeeye(){
             // this.eyesrc = this.pwdtype === "password" ? './openeye.png' : './closeeye.png'

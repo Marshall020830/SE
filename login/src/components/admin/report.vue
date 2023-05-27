@@ -2,14 +2,15 @@
   <div>
     <button @click="goback">返回登录界面</button>
     <ul>
-      <li>{{ chargeinfo.charge_id }}</li>
-      <li>{{ chargeinfo.time }}</li>
-      <li>{{ chargeinfo.total_charge_times }}</li>
-      <li>{{ chargeinfo.total_charge_duration }}</li>
-      <li>{{ chargeinfo.total_capacity }}</li>
-      <li>{{ chargeinfo.total_charge_fee }}</li>
-      <li>{{ chargeinfo.total_charge_service }}</li>
-      <li>{{ chargeinfo.total_fee }}</li>
+      <li>充电桩id：{{ chargeinfo.charge_id }}</li>
+      <li>截止时间：{{ chargeinfo.time }}</li>
+      <li>充电模式：{{ chargeinfo.mode }}</li>
+      <li>总充电次数：{{ chargeinfo.total_charge_times }}</li>
+      <li>总充电时长：{{ chargeinfo.total_charge_duration }}</li>
+      <li>充电总量：{{ chargeinfo.total_charge }}</li>
+      <li>充电总费用：{{ chargeinfo.total_charge_fee }}</li>
+      <li>总服务费用：{{ chargeinfo.total_charge_service }}</li>
+      <li>总费用：{{ chargeinfo.total_fee }}</li>
     </ul>
   </div>
 </template>
@@ -30,7 +31,7 @@ export default {
             console.log("report获取"+this.charge_id)
         },
         goback(){
-          this.$router.replace("/admin/manage")
+          this.$router.replace("/admin/index/manage")
         }
     },
     watch:{
@@ -48,7 +49,7 @@ export default {
         }
         this.axios({
             method:'GET',
-            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage/report`,
+            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/index/report`,
             // headers:{
             //   'Content-type': 'application/json; charset=UTF-8'
             // },
@@ -56,13 +57,13 @@ export default {
           })
           .then((response)=>{
             console.log(response)
-            if(response.data.code != "0"){
+            if(response.data.code != 0){
             //   this.$router.push('/admin/manage')
             //   localStorage.setItem('token',response.data.data.token)
               this.chargeinfo = response.data.data
             }
             else{
-              this.info = response.data.msg
+              alert(response.data.msg)
             }
           })
           .catch((error) => {
@@ -84,7 +85,7 @@ export default {
         }
         vm.axios({
             method:'GET',
-            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage/report`,
+            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/index/report`,
             // headers:{
             //   'Content-type': 'application/json; charset=UTF-8'
             // },
@@ -98,7 +99,7 @@ export default {
               vm.chargeinfo = response.data.data
             }
             else{
-              vm.info = response.data.msg
+              alert(response.data.msg)
             }
           })
           .catch((error) => {

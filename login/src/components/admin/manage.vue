@@ -21,9 +21,10 @@
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column prop="capacity" label="总电量容量" width="150"> </el-table-column>
-      <el-table-column prop="remain" label="剩余电量" width="150"> </el-table-column>
-      <el-table-column prop="times" label="开机后充电次数" width="150"> </el-table-column>
+      <el-table-column prop="total_charge" label="总充电总量" width="150"> </el-table-column>
+      <el-table-column prop="total_charge_times" label="总充电次数
+" width="150"> </el-table-column>
+      <el-table-column prop="total_charge_duration" label="总充电时长" width="150"> </el-table-column>
       <el-table-column prop="" label="车辆信息" width="150"> 
         <template slot-scope="scope">
           <el-button @click="jumpcharge(scope.row.id)">
@@ -71,7 +72,7 @@ import report from "./report.vue"
             console.log("我被执行了")
             this.axios({
               method:'GET',
-              url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage?token=1`,
+              url:`https://mock.apifox.cn/m1/2726825-0-default/admin/index/manage`,
               // headers:{
               //   'Content-type': 'application/json; charset=UTF-8'
               // },
@@ -80,7 +81,7 @@ import report from "./report.vue"
             .then((response)=>{
               console.log("@autogetdata")
               console.log(response)
-              if(response.data.code != '-1'){
+              if(response.data.code != 0){
                 this.station = response.data.data.station
                 this.charge_array = response.data.data.station.charge_array
                 this.wait_array = response.data.data.station.wait_array
@@ -98,7 +99,7 @@ import report from "./report.vue"
           jump(id){
             // console.log("点击"+id)
             this.$router.replace({
-              path:'/admin/manage/report',
+              path:'/admin/index/report',
               query:{
                 "stationid":id,
               }
@@ -111,7 +112,7 @@ import report from "./report.vue"
             }
             this.axios({
             method:'POST',
-            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/manage`,
+            url:`https://mock.apifox.cn/m1/2726825-0-default/admin/index/manage`,
             headers:{
               'Content-type': 'application/json; charset=UTF-8'
             },
@@ -119,7 +120,7 @@ import report from "./report.vue"
           })
           .then((response)=>{
             console.log("@changestate"+response)
-            if(response.data.code != '-1'){
+            if(response.data.code != 0){
               // console.log(response)
               // this.$router.push('/admin/manage')
               this.charge_array[index].state = !this.charge_array[index].state
@@ -136,7 +137,7 @@ import report from "./report.vue"
           },
           jumpcharge(id){
             this.$router.replace({
-              path:'/admin/manage/charge',
+              path:'/admin/index/charge',
               query:{
                 "stationid":id
               }

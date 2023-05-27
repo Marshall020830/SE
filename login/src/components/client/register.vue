@@ -90,7 +90,7 @@ export default {
                 .then((response)=>{
                     if(response.code == 200){
                         alert("注册成功，欢迎"+account)
-                        this.$router.push('/client/login')
+                        this.$router.replace('/client/login')
                     }
                     else{
                         this.info = response.msg
